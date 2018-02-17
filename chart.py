@@ -36,6 +36,8 @@ path = os.path.dirname(os.path.realpath(__file__))
 if len(sys.argv) == 1:
     raise ValueError('Missing filename')
 
+from scipy.signal import medfilt
+
 # Make a chart for a csv file from the data directory
 file_name = path + '/data/' + sys.argv[1]
 
@@ -55,6 +57,15 @@ ax1.set_title("Heartbeat Data")
 ax1.set_xlabel('time')
 ax1.set_ylabel('reading')
 
-ax1.plot(data['x'], data['y'], color='r', label='the data')
+x = data['x']
+y = data['y']
+
+# This is a moving average (median) filter that smooths out the data.
+# The default for the second argument is 3
+yfilt = medfilt(y, 21)
+
+ax1.plot(x, yfilt, color='r', label='the data')
 
 plt.show()
+
+# import ipdb; ipdb.set_trace()
