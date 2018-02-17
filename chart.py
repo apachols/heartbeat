@@ -36,10 +36,8 @@ path = os.path.dirname(os.path.realpath(__file__))
 if len(sys.argv) == 1:
     raise ValueError('Missing filename')
 
-# Make a chart for a csv file from the current directory
-file_name = path + '/' + sys.argv[1]
-
-print(file_name)
+# Make a chart for a csv file from the data directory
+file_name = path + '/data/' + sys.argv[1]
 
 data = np.genfromtxt(
     file_name,
