@@ -38,6 +38,13 @@ if len(sys.argv) == 1:
 
 from scipy.signal import medfilt
 
+'''
+  THIS IS THE SENSOR WE ARE USING:
+    http://embedded-lab.com/blog/easy-pulse-version-1-1-sensor-overview-part-1/
+
+  Apparently the data is 40 samples / second, no matter what the CSV says
+'''
+
 # Make a chart for a csv file from the data directory
 file_name = path + '/data/' + sys.argv[1]
 
@@ -61,8 +68,8 @@ x = data['x']
 y = data['y']
 
 # This is a moving average (median) filter that smooths out the data.
-# The default for the second argument is 3
-yfilt = medfilt(y, 21)
+# The default for the second argument is 3; this argument needs to be ODD not EVEN.
+yfilt = medfilt(y, 15)
 
 ax1.plot(x, yfilt, color='r', label='the data')
 
